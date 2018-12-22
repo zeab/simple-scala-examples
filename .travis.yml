@@ -1,0 +1,22 @@
+# See http://about.travis-ci.org/docs/user/build-configuration/
+language: scala
+dist: xenial
+
+scala:
+   - 2.12.6
+
+branches:
+  only:
+    - master
+
+
+notifications:
+  email:
+    recipients:
+      - youremail@abc.com
+
+jdk:
+  - openjdk8
+
+script:
+- sbt clean
