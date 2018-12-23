@@ -1,6 +1,7 @@
 package zeab.simplestream
 
 //Imports
+import zeab.akkatools.akkaconfigbuilder.AkkaConfigBuilder
 import zeab.logging.Logging
 //Java
 import java.util.concurrent.atomic.LongAdder
@@ -18,18 +19,20 @@ object SimpleStream extends Logging {
   def main(args: Array[String]): Unit = {
 
     //Akka
-    implicit val system: ActorSystem = ActorSystem()
+    implicit val system:ActorSystem = ActorSystem("SimpleStream", AkkaConfigBuilder.buildConfig())
     implicit val mat: ActorMaterializer = ActorMaterializer()
     implicit val ec: ExecutionContext = system.dispatcher
 
     //Int used in the message
     val counter: LongAdder = new LongAdder()
 
+    val quantityOfElements: Int = 5
+
     //Stream input
     val inputSource: Source[LongAdder, NotUsed] =
       Source
         .repeat(counter)
-        .throttle(1, 5.seconds)
+        .throttle(quantityOfElements, 5.seconds)
 
     //Stream Transform/Update
     val transformFlow = Flow[LongAdder].map { counter =>
