@@ -8,4 +8,6 @@ object Versions {
 
   val simpleUdpClientVersion: String = s"0.0.$buildTime"
 
+  val simpleStreamVersion: String = s"0.0.$buildTime"
+
 }

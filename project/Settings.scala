@@ -10,4 +10,6 @@ object Settings {
   val simpleWebServiceSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(simpleWebServiceVersion)
   val simpleUdpClientSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(simpleUdpClientVersion)
 
+  val simpleStreamSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(simpleStreamVersion)
+
 }
