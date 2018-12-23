@@ -1,0 +1,115 @@
+swagger: '2.0'
+info:
+  title: Performance Controller
+  description: A service which produces various messages for the purpose of performance testing
+  version: 4.0.0
+host: localhost
+schemes:
+  - http
+basePath: "/v1"
+produces:
+  - application/json
+paths:
+  /start:
+    post:
+      tags:
+      - "Test Controller"
+      summary: PostStartTest
+      description: |
+        Starts creating basic users
+        A basic user is just a member nothing more nothing less
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/StartTest"
+      responses:
+        '202':
+          description: "Test started"
+          schema:
+            $ref: "#/definitions/StartResponse"
+  /stop/{testRunId}:
+    post:
+      tags:
+      - "Test Controller"
+      summary: PostStopTestByTestRunId
+      description: |
+        Stops the test with the test run id
+      produces:
+      - "application/json"
+      parameters:
+      - name: "testRunId"
+        in: "path"
+        description: "Test Run Id"
+        required: true
+        type: "string"
+      responses:
+        '202':
+          description: "*Stopping TestController-aaaa-bbbb-cccc-dddd-eeee*"
+  /stop/all:
+    post:
+      tags:
+      - "Test Controller"
+      summary: PostStopAllTest
+      description: |
+       Stops all the test run controllers regardless
+      produces:
+      - "application/json"
+      responses:
+        '202':
+          description: "*Stopping All test Controllers*"
+definitions:
+  StartTest:
+    type: "object"
+    properties:
+      testEnvironment:
+        type: "string"
+        example: "ucp-rewards-na-pf"
+      testIngress:
+        type: "string"
+        example: "apigee"
+      apigeeOrg:
+        type: "string"
+        example: "sbux-load-gcp"
+      testRunDurationInSeconds:
+        type: "integer"
+        format: "int32"
+        example: 0
+      testData:
+        type: "object"
+        properties:
+          name:
+            type: "string"
+            example: "PostIngressCheck"
+          concurrentRequests:
+            type: "integer"
+            format: "int32"
+            example: 1
+          requestRateInMs:
+            type: "integer"
+            format: "int32"
+            example: 1000
+          stepAmount:
+            type: "integer"
+            format: "int32"
+            example: 0
+          stepFrequency:
+            type: "integer"
+            format: "int32"
+            example: 0
+          testMetaData:
+            type: object
+            additionalProperties:
+              type: string
+            example: null
+  StartResponse:
+    type: "object"
+    properties:
+      testRunId:
+        type: "string"
+        example: "aaaa-bbbb-cccc-dddd-eeee"
+        
+        

@@ -1,0 +1,126 @@
+swagger: '2.0'
+info:
+  title: User Generator
+  description: A service which creates users of UCP in certian distinct combinates for the purposes of testing
+  version: 4.0.0
+host: localhost
+schemes:
+  - http
+basePath: "/v1"
+produces:
+  - application/json
+paths:
+  /user/start/basicuser:
+    post:
+      tags:
+      - "User"
+      summary: PostStartBasicUser
+      description: |
+        Starts creating basic users
+        A basic user is just a member nothing more nothing less
+      produces:
+      - "application/plainText"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/StartUser"
+      responses:
+        '202':
+          description: "basicuser started"
+  /user/stop/basicuser:
+    post:
+      tags:
+      - "User"
+      summary: PostStopBasicUser
+      description: |
+        Stops creating basic users
+      produces:
+      - "application/plainText"
+      responses:
+        '202':
+          description: "basicuser stopped"
+  /user/start/fulluser:
+    post:
+      tags:
+      - "User"
+      summary: PostStartFullUser
+      description: |
+        Starts creating full users
+        A full user is a member with points
+      produces:
+      - "application/plainText"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/StartUser"
+      responses:
+        '202':
+          description: "fulluser started"
+  /user/stop/fulluser:
+    post:
+      tags:
+      - "User"
+      summary: PostStopFullUser
+      description: |
+        Stops creating full users
+      produces:
+      - "application/plainText"
+      responses:
+        '202':
+          description: "fulluser stopped"
+  /user/start/activeuser:
+    post:
+      tags:
+      - "User"
+      summary: PostStartActiveUser
+      description: |
+        Starts creating active users
+        An active user is a member with points and a transaction history
+      produces:
+      - "application/plainText"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/StartUser"
+      responses:
+        '202':
+          description: "activeuser started"
+  /user/stop/activeuser:
+    post:
+      tags:
+      - "User"
+      summary: PostStopActiveUser
+      description: |
+        Stops creating active users
+      produces:
+      - "application/plainText"
+      responses:
+        '202':
+          description: "activeuser stopped"
+definitions:
+  StartUser:
+    type: "object"
+    properties:
+      environment:
+        type: "string"
+        example: "ucp-rewards-na-pf"
+      ingress:
+        type: "string"
+        example: "apigee"
+      apigeeOrg:
+        type: "string"
+        example: "sbux-load-gcp"
+      concurrentRequests:
+        type: "integer"
+        format: "int32"
+        example: 5
+      requestRateInMs:
+        type: "integer"
+        format: "int32"
+        example: 1000

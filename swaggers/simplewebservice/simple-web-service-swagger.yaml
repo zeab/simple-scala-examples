@@ -1,0 +1,49 @@
+swagger: '2.0'
+info:
+  title: Simple-Http-Service Api
+  description: A simple http service used for testing
+  version: 1.0.0
+host: localhost
+schemes:
+  - http
+basePath: /
+produces:
+  - application/text
+paths:
+  /ingressCheck:
+    get:
+      summary: GetIngressCheck
+      description: |
+        Just returns a message if ingress is working
+      responses:
+        '202':
+          description: GetIngressCheck
+      tags:
+      - "Ingress Check"
+    post:
+      summary: PostIngressCheck
+      description: |
+        Just returns a message if ingress is working
+      responses:
+        '202':
+          description: PostIngressCheck
+      tags:
+      - "Ingress Check"
+    put:
+      summary: PutIngressCheck
+      description: |
+        Just returns a message if ingress is working
+      responses:
+        '202':
+          description: PutIngressCheck
+      tags:
+      - "Ingress Check"
+    delete:
+      summary: DeleteIngressCheck
+      description: |
+        Just returns a message if ingress is working
+      responses:
+        '202':
+          description: DeleteIngressCheck
+      tags:
+      - "Ingress Check"

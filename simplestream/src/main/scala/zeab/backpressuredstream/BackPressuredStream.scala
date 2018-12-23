@@ -11,18 +11,17 @@ import zeab.logging.Logging
 import java.util.concurrent.atomic.LongAdder
 //Akka
 import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, OverflowStrategy}
 import akka.stream.scaladsl.Source
+import akka.stream.{ActorMaterializer, OverflowStrategy}
 //Scala
 import scala.concurrent.ExecutionContext
-import scala.concurrent.duration._
 
-object BackPressuredStream extends Logging{
+object BackPressuredStream extends Logging {
 
   def main(args: Array[String]): Unit = {
 
     //Akka
-    implicit val system:ActorSystem = ActorSystem("BackPressuredStream", AkkaConfigBuilder.buildConfig())
+    implicit val system: ActorSystem = ActorSystem("BackPressuredStream", AkkaConfigBuilder.buildConfig())
     implicit val mat: ActorMaterializer = ActorMaterializer()
     implicit val ec: ExecutionContext = system.dispatcher
 

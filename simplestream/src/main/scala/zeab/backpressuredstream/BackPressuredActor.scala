@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.LongAdder
 import akka.actor.Actor
 import akka.event.{Logging, LoggingAdapter}
 
-class BackPressuredActor extends Actor{
+class BackPressuredActor extends Actor {
 
   //Actor Settings
   val actorLog: LoggingAdapter = Logging(context.system, this)
