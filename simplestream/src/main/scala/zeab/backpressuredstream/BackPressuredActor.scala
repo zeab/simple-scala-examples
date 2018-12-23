@@ -19,7 +19,7 @@ class BackPressuredActor extends Actor {
   //Behaviors
   def count(c: Int = 0): Receive = {
     case Init => sender ! Ack
-    case Complete => actorLog.info("Back Pressured Completed")
+    case Complete => actorLog.info("Stream Completed")
     case StreamFailure(ex) => actorLog.error(ex.toString)
     case m: LongAdder =>
       sender ! Ack
