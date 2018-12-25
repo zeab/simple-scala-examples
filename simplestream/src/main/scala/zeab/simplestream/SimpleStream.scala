@@ -3,8 +3,6 @@ package zeab.simplestream
 //Imports
 import zeab.akkatools.akkaconfigbuilder.AkkaConfigBuilder
 import zeab.logging.Logging
-//Java
-import java.util.concurrent.atomic.LongAdder
 //Akka
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
@@ -23,29 +21,24 @@ object SimpleStream extends Logging {
     implicit val mat: ActorMaterializer = ActorMaterializer()
     implicit val ec: ExecutionContext = system.dispatcher
 
-    //Int used in the message
-    val counter: LongAdder = new LongAdder()
+    //HOw many messages to send in one go
+    val howMany = 1
+    //how often to send messages
+    val howOften = 1.second
 
-    val quantityOfElements: Int = 5
-
-    //Stream input
-    val inputSource: Source[LongAdder, NotUsed] =
+    val inputSource: Source[Msg, NotUsed] =
       Source
-        .repeat(counter)
-        .throttle(quantityOfElements, 5.seconds)
+        .repeat(new Msg)
+        .throttle(howMany, howOften)
 
     //Stream Transform/Update
-    val transformFlow = Flow[LongAdder].map { counter =>
-      counter.increment()
-      counter
-    }.async
+    val transformFlow = Flow[Msg].map {"Ahoy! " + _.msg}.async
 
     //Stream output
-    val outputSink: Sink[LongAdder, Future[Done]] =
+    val outputSink: Sink[String, Future[Done]] =
       Sink
-        .foreach { message => log.info(s"${message.intValue}") }
+        .foreach { message => log.info(s"$message") }
 
-    //Run the stream
     inputSource
       .viaMat(transformFlow)(Keep.both)
       .toMat(outputSink)(Keep.both)
