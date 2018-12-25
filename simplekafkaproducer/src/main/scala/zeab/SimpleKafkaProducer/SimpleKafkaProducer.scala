@@ -21,14 +21,12 @@ object SimpleKafkaProducer extends Logging{
 
     //Settings
     val kafkaAddress = "localhost:9021"
-    val kafkaConcurrentCount: Int = envGrok("KAFKA_CONCURRENT_COUNT", "1").toInt
     val kafkaTopic: String = envGrok("KAFKA_TOPIC", "thistopic")
 
     //Akka
     implicit val actorSystem:ActorSystem = ActorSystem("SimpleKafkaProducer", AkkaConfigBuilder.buildConfig())
     implicit val actorMaterializer: ActorMaterializer = ActorMaterializer()
     implicit val executionContext: ExecutionContext = actorSystem.dispatcher
-
 
     //Kafka Producer Settings
     val kafkaConfig: Config = actorSystem.settings.config.getConfig("akka.kafka.producer")
