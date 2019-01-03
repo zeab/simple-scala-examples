@@ -23,7 +23,7 @@ object SimpleWebService extends Logging with WebServiceEnvGrok{
     implicit val executionContext: ExecutionContext = actorSystem.dispatcher
 
     //Web Service
-    actorSystem.actorOf(Props(classOf[WebServiceActor], actorMaterializer), "SimpleWebService") ! StartService(Routes.allRoutes)
+    actorSystem.actorOf(Props(classOf[WebServiceActor], actorMaterializer), "SimpleWebService") ! StartService(Routes.allRoutes, "8082")
 
   }
 
