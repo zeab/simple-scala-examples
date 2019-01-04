@@ -26,7 +26,8 @@ object ActorAsSourceForRoute extends Logging{
     system.actorOf(Props(classOf[WebServiceActor], mat), "ActorAsSourceForRouteWebService") ! StartService(Routes.allRoutes)
 
     system.scheduler.schedule(1.second, 1.second){
-      system.eventStream.publish(s"${UUID.randomUUID}")
+//      system.eventStream.publish(s"${UUID.randomUUID}")
+      system.eventStream.publish(StreamDataPacket(UUID.randomUUID.toString, "llama"))
     }
 
   }

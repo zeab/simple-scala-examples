@@ -10,7 +10,9 @@ import akka.stream.{ActorMaterializer, ThrottleMode}
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
 
-import scala.concurrent.duration._
+//Circe
+import io.circe.generic.auto._
+import io.circe.syntax._
 
 object Routes {
 
@@ -24,7 +26,7 @@ object Routes {
         val sourceFeeder: ActorRef = actorSystem.actorOf(Props(classOf[SourceFeeder]))
         val sourceGraph: MessageSource = new MessageSource(sourceFeeder)
         val source = Source.fromGraph(sourceGraph)
-          .map(_.toString)
+          .map(_.asJson.noSpaces)
           .map(s => ByteString(s + "\n"))
         complete(HttpEntity(ContentTypes.`text/plain(UTF-8)`, source))
       }

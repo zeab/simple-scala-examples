@@ -7,14 +7,14 @@ import akka.stream.{Attributes, Outlet, SourceShape}
 
 import scala.collection.immutable.Queue
 
-class MessageSource(sourceFeeder: ActorRef) extends GraphStage[SourceShape[String]] {
-  val out: Outlet[String] = Outlet("MessageSource")
-  override val shape: SourceShape[String] = SourceShape(out)
+class MessageSource(sourceFeeder: ActorRef) extends GraphStage[SourceShape[StreamDataPacket]] {
+  val out: Outlet[StreamDataPacket] = Outlet("MessageSource")
+  override val shape: SourceShape[StreamDataPacket] = SourceShape(out)
 
   override def createLogic(inheritedAttributes: Attributes): GraphStageLogic =
     new GraphStageLogic(shape) with StageLogging {
       lazy val self: StageActor = getStageActor(onMessage)
-      var messages: Queue[String] = Queue()
+      var messages: Queue[StreamDataPacket] = Queue()
 
       setHandler(out, new OutHandler {
         override def onPull(): Unit = {
@@ -27,7 +27,7 @@ class MessageSource(sourceFeeder: ActorRef) extends GraphStage[SourceShape[Strin
         if (isAvailable(out) && messages.nonEmpty) {
           log.info("ready to dequeue")
           messages.dequeue match {
-            case (msg: String, newQueue: Queue[String]) =>
+            case (msg: StreamDataPacket, newQueue: Queue[StreamDataPacket]) =>
               log.info("got message from queue, pushing: {} ", msg)
               push(out, msg)
               messages = newQueue
@@ -43,10 +43,11 @@ class MessageSource(sourceFeeder: ActorRef) extends GraphStage[SourceShape[Strin
       private def onMessage(x: (ActorRef, Any)): Unit =
       {
         x match {
-          case (_, msg: String) =>
+          case (_, msg: StreamDataPacket) =>
             log.info("received msg, queueing: {} ", msg)
             messages = messages.enqueue(msg)
             pump()
+          case _ => log.error("Something bad happened inside the onMessage")
         }
       }
     }
