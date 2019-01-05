@@ -14,4 +14,6 @@ object Versions {
   val simpleKafkaConsumerVersion: String = s"0.0.$buildTime"
   val simpleKafkaEnricherVersion: String = s"0.0.$buildTime"
 
+  val complexWebServiceVersion: String = s"0.0.$buildTime"
+  
 }

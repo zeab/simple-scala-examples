@@ -1,4 +1,4 @@
-package zeab.simplewebservice.webservice
+package zeab.complexwebservice.webservice
 
 //Imports
 import akka.actor.ActorSystem

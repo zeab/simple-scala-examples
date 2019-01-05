@@ -13,7 +13,9 @@ object CommandAlias {
     dockerCommands("sws", simpleWebServiceKey) ++
       dockerCommands(simpleWebServiceKey) ++
       dockerCommands("suc", simpleUdpClientKey) ++
-      dockerCommands(simpleUdpClientKey)
+      dockerCommands(simpleUdpClientKey) ++
+      dockerCommands("cws", complexWebServiceKey) ++
+      dockerCommands(complexWebServiceKey)
 
   //List all Assembly Alias here
   val allAssemblyAlias: Seq[Def.Setting[_]] = Seq.empty

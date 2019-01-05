@@ -11,15 +11,11 @@ object ActorAsSource {
 
   def main(args: Array[String]): Unit = {
 
-
-    val ss: Source[ByteString, ActorRef] = Source.actorRef(10, OverflowStrategy.dropTail)
+    val source: Source[ByteString, ActorRef] = Source.actorRef(10, OverflowStrategy.dropTail)
       .throttle(elements = 1000, per = 1.second, maximumBurst = 1, mode = ThrottleMode.Shaping)
       .map(_.toString)
       .map(s => ByteString(s + "\n"))
-
-
-
-
+    
   }
 
 }

@@ -32,7 +32,10 @@ object SimpleStream extends Logging {
         .throttle(howMany, howOften)
 
     //Stream Transform/Update
-    val transformFlow = Flow[Msg].map {"Ahoy! " + _.msg}.async
+    val transformFlow =
+      Flow[Msg]
+        .map {"Ahoy! " + _.msg}
+        .async
 
     //Stream output
     val outputSink: Sink[String, Future[Done]] =

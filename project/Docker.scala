@@ -30,6 +30,13 @@ object Docker {
     dockerUpdateLatest := true
   )
 
+  val complexWebServiceDockerSettings: Seq[Def.Setting[_]] = Seq(
+    dockerBaseImage := I.openjdk8Alpine,
+    dockerRepository := repo,
+    dockerLabels := mapDockerLabels(complexWebServiceKey, complexWebServiceVersion, buildTime),
+    dockerUpdateLatest := true
+  )
+
   val simpleUdpClientDockerSettings: Seq[Def.Setting[_]] = Seq(
     dockerBaseImage := I.openjdk8Alpine,
     dockerRepository := repo,

@@ -12,4 +12,5 @@ object ModuleNames {
   val simpleUdpClientKey: String = "simpleudpclient"
   val simpleUdpServiceKey: String = "simpleudpservice"
 
+  val complexWebServiceKey: String = "complexwebservice"
 }
