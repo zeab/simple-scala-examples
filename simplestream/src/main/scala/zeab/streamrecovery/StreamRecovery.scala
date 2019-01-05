@@ -42,7 +42,8 @@ object StreamRecovery extends Logging {
 
     //Put it all together and actually run the source
     inputSource
-      .toMat(outputSink)(Keep.both).withAttributes(ActorAttributes.supervisionStrategy(decider))
+      .toMat(outputSink)(Keep.both)
+      .withAttributes(ActorAttributes.supervisionStrategy(decider))
       .run()
 
   }
