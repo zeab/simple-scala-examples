@@ -1,7 +1,6 @@
 package zeab.complexwebservice.webservice
 
 //Imports
-
 import zeab.complexwebservice.webservice.actorassourceforhttpstream.{ExampleDataPacketFeederActor, ExampleDataPacketGraph}
 //Akka
 import akka.{Done, NotUsed}
@@ -45,18 +44,15 @@ object Routes {
   def webSocket(implicit actorSystem: ActorSystem): Route = {
     pathPrefix("websocket") {
       get {
-
         val incomingMessages: Sink[Message, Future[Done]] =
           Sink
             .foreach { message => println(s"$message") }
-
         //so the source... custom flow again ... right...
         //But then again... do i really need that... i really dont know...
         val outgoingMessages: Source[Message, NotUsed] =
           Source
             .repeat(TextMessage(s"${UUID.randomUUID}"))
             .throttle(1, 1.second)
-
         handleWebSocketMessages(Flow.fromSinkAndSource(incomingMessages, outgoingMessages))
       }
     }
