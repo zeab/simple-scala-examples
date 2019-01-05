@@ -32,7 +32,7 @@ object SimpleStream extends Logging {
         .throttle(howMany, howOften)
 
     //Stream Transform/Update
-    val transformFlow =
+    val transformFlow: Flow[Msg, String, NotUsed] =
       Flow[Msg]
         .map {"Ahoy! " + _.msg}
         .async
@@ -42,6 +42,7 @@ object SimpleStream extends Logging {
       Sink
         .foreach { message => log.info(s"$message") }
 
+    //Put it all together and actually run the source
     inputSource
       .viaMat(transformFlow)(Keep.both)
       .toMat(outputSink)(Keep.both)

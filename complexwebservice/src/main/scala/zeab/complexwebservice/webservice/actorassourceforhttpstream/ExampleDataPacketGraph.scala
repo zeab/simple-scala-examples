@@ -4,14 +4,14 @@ package zeab.complexwebservice.webservice.actorassourceforhttpstream
 import zeab.complexwebservice.ExampleDataPacket
 //Akka
 import akka.actor.ActorRef
-import akka.stream.{Attributes, Outlet, SourceShape}
 import akka.stream.stage.GraphStageLogic.StageActor
 import akka.stream.stage.{GraphStage, GraphStageLogic, OutHandler, StageLogging}
+import akka.stream.{Attributes, Outlet, SourceShape}
 //Scala
 import scala.collection.immutable.Queue
 
 class ExampleDataPacketGraph(sourceFeeder: ActorRef) extends GraphStage[SourceShape[ExampleDataPacket]] {
-  val out: Outlet[ExampleDataPacket] = Outlet("MessageSource")
+  val out: Outlet[ExampleDataPacket] = Outlet("ExampleDataPacketGraph")
   override val shape: SourceShape[ExampleDataPacket] = SourceShape(out)
 
   override def createLogic(inheritedAttributes: Attributes): GraphStageLogic =
@@ -43,8 +43,7 @@ class ExampleDataPacketGraph(sourceFeeder: ActorRef) extends GraphStage[SourceSh
         sourceFeeder ! self.ref
       }
 
-      private def onMessage(x: (ActorRef, Any)): Unit =
-      {
+      private def onMessage(x: (ActorRef, Any)): Unit = {
         x match {
           case (_, msg: ExampleDataPacket) =>
             log.debug("received msg, queueing: {} ", msg)

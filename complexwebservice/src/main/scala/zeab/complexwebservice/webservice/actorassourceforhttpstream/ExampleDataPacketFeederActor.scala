@@ -7,7 +7,7 @@ import zeab.logging.Logging
 import akka.actor.{Actor, ActorRef, Stash}
 
 //This is the actor that you will be sending to in order to drop items into the stream
-class ExampleDataPacketFeederActor extends Actor with Stash with Logging{
+class ExampleDataPacketFeederActor extends Actor with Stash with Logging {
 
   def receive: Receive = {
     case _: ExampleDataPacket => stash()
@@ -27,6 +27,7 @@ class ExampleDataPacketFeederActor extends Actor with Stash with Logging{
   override def preStart: Unit = {
     context.system.eventStream.subscribe(self, classOf[ExampleDataPacket])
   }
+
   /** Log Name on Stop */
   override def postStop: Unit = {
     context.system.eventStream.unsubscribe(self, classOf[ExampleDataPacket])
