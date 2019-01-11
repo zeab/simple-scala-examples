@@ -1,16 +1,15 @@
-package zeab.complexwebservice.webservice
+package zeab.webservice
 
 //Imports
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import akka.stream.{ActorMaterializer, ThrottleMode}
 import akka.stream.scaladsl.Source
+import akka.stream.{ActorMaterializer, ThrottleMode}
 import akka.util.ByteString
-//Scala
-import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 object Routes {
 

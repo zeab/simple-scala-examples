@@ -5,7 +5,7 @@ import zeab.akkatools.akkaconfigbuilder.AkkaConfigBuilder
 import zeab.akkatools.webservice.{WebServiceActor, WebServiceEnvGrok}
 import zeab.akkatools.webservice.WebServiceMessages.StartService
 import zeab.logging.Logging
-import zeab.complexwebservice.webservice.Routes
+import zeab.webservice.Routes
 //Akka
 import akka.actor.Props
 import akka.actor.ActorSystem
