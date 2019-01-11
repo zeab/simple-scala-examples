@@ -36,8 +36,7 @@ object SimpleKafkaProducer extends Logging{
     val kafkaProducer: KafkaProducer[String,String] = kafkaProducerSettings.createKafkaProducer()
 
     //Source
-    val kafkaSource =
-      Source.repeat(new Msg)
+    val kafkaSource = Source.repeat(new Msg)
 
     //Sink
     val kafkaSink: Sink[ProducerRecord[String, String], Future[Done]] = Producer.plainSink(kafkaProducerSettings, kafkaProducer)
