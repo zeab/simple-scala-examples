@@ -35,7 +35,7 @@ object Routes {
         val sourceGraph: ExampleDataPacketGraph = new ExampleDataPacketGraph(sourceFeeder)
         val source: Source[ByteString, NotUsed] = Source.fromGraph(sourceGraph)
           .map(_.asJson.noSpaces)
-          .map(s => ByteString(s + "\n"))
+          .map(s => ByteString(s))
         complete(HttpEntity(ContentTypes.`text/plain(UTF-8)`, source))
       }
     }

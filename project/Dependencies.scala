@@ -5,7 +5,7 @@ object Dependencies {
 
   //List of Versions
   val V = new {
-    val wabonki                     = "0.0.18"
+    val wabonki                     = "0.0.23"
   }
 
   //List of Dependencies

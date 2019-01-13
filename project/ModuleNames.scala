@@ -13,4 +13,5 @@ object ModuleNames {
   val simpleUdpServiceKey: String = "simpleudpservice"
 
   val complexWebServiceKey: String = "complexwebservice"
+
 }

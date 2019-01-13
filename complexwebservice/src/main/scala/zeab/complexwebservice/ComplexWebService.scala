@@ -1,6 +1,8 @@
 package zeab.complexwebservice
 
 //Imports
+import java.util.UUID
+
 import zeab.akkatools.akkaconfigbuilder.AkkaConfigBuilder
 import zeab.akkatools.webservice.WebServiceMessages.StartService
 import zeab.akkatools.webservice.{WebServiceActor, WebServiceEnvGrok}
@@ -26,8 +28,8 @@ object ComplexWebService extends Logging with WebServiceEnvGrok {
     system.actorOf(Props(classOf[WebServiceActor], mat), "ComplexWebService") ! StartService(Routes.allRoutes)
 
     //Start a scheduler that posts messages to the event bus so that the stream's can listen in
-    system.scheduler.schedule(0.second, 1.second) {
-      system.eventStream.publish(ExampleDataPacket("ahoy!"))
+    system.scheduler.schedule(0.second, 250.millisecond) {
+      for (_ <- 1 to 6){system.eventStream.publish(ExampleDataPacket(s"Ahoy! ${UUID.randomUUID}"))}
     }
 
   }

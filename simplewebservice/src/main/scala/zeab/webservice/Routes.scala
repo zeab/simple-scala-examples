@@ -1,6 +1,8 @@
 package zeab.webservice
 
 //Imports
+import java.util.UUID
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.Directives._
@@ -8,6 +10,7 @@ import akka.http.scaladsl.server.Route
 import akka.stream.scaladsl.Source
 import akka.stream.{ActorMaterializer, ThrottleMode}
 import akka.util.ByteString
+
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
@@ -37,15 +40,18 @@ object Routes {
   def streamRoute(implicit actorSystem: ActorSystem, mat: ActorMaterializer, executionContext: ExecutionContext): Route = {
     pathPrefix("stream") {
       get {
-          val sourceOfInformation = Source("Prepare to scroll!")
-          val sourceOfNumbers = Source(1 to 1000000)
-          val byteStringSource = sourceOfInformation.concat(sourceOfNumbers) // merge the two sources
-            .throttle(elements = 1000, per = 1.second, maximumBurst = 1, mode = ThrottleMode.Shaping)
-            .map(_.toString)
-            .map(s => ByteString(s + "\n"))
-          complete(HttpEntity(ContentTypes.`text/plain(UTF-8)`, byteStringSource))
+        val source = Source.repeat(Msg())
+        val byteStringSource = source
+          .throttle(elements = 6, per = 250.millisecond, maximumBurst = 10, mode = ThrottleMode.Shaping)
+          .map(_.newMsg)
+          .map(s => ByteString(s + "\n"))
+        complete(HttpEntity(ContentTypes.`text/plain(UTF-8)`, byteStringSource))
       }
     }
+  }
+
+  case class Msg(){
+    def newMsg: String = s"Ahoy ${UUID.randomUUID}"
   }
 
 }

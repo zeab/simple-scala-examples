@@ -43,6 +43,8 @@ class ExampleDataPacketGraph(sourceFeeder: ActorRef) extends GraphStage[SourceSh
         sourceFeeder ! self.ref
       }
 
+      override def postStop(): Unit = log.info("This is post stop... dun know why it would not work before")
+
       private def onMessage(x: (ActorRef, Any)): Unit = {
         x match {
           case (_, msg: ExampleDataPacket) =>
