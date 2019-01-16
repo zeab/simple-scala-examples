@@ -17,7 +17,19 @@ import scala.concurrent.ExecutionContext
 object Routes {
 
   //Collection of all the routes together in 1 big route
-  def allRoutes(implicit actorSystem: ActorSystem, mat: ActorMaterializer, executionContext: ExecutionContext): Route = ingressCheckRoute ~ streamRoute
+  def allRoutes(implicit actorSystem: ActorSystem, mat: ActorMaterializer, executionContext: ExecutionContext): Route = ingressCheckRoute ~ streamRoute ~ webUiRoute
+
+  //Routes for serving files though a route
+  def webUiRoute(implicit actorSystem:ActorSystem):Route = {
+    //Serve up the web page with a get or a redirect if it cannot be found
+    get {
+      (pathEndOrSingleSlash & redirectToTrailingSlashIfMissing(StatusCodes.TemporaryRedirect)) {
+        getFromFile("./webUi/index.html")
+      }~{
+        getFromDirectory("./webUi")
+      }
+    }
+  }
 
   //Routes dealing with basic ingress checks
   def ingressCheckRoute(implicit actorSystem: ActorSystem): Route = {

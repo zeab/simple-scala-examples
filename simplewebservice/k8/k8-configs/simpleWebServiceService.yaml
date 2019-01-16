@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"domain":"loyalty","namespace":"ucp-usa-ct","repo-branch":"master","service":"simplewebservice"},"name":"simplewebservice","namespace":"ucp-usa-ct"},"spec":{"ports":[{"name":"simplewebservice-8080","port":8080,"targetPort":8080}],"selector":{"service":"simplewebservice"}}}
+  creationTimestamp: 2018-02-28T23:45:31Z
+  labels:
+    concourse-build: "8501"
+    domain: loyalty
+    namespace: ucp-usa-ct
+    repo-branch: master
+    service: simplewebservice
+  name: simplewebservice
+  namespace: ucp-usa-ct
+  resourceVersion: "144110572"
+  selfLink: /api/v1/namespaces/ucp-usa-ct/services/simplewebservice
+  uid: 7680614a-1ce1-11e8-ac39-02523b626ea0
+spec:
+  clusterIP: 10.3.27.187
+  ports:
+  - name: simplewebservice-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    service: simplewebservice
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

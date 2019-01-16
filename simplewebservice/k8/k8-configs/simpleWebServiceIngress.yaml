@@ -1,0 +1,38 @@
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"extensions/v1beta1","kind":"Ingress","metadata":{"annotations":{"kubernetes.io/ingress.class":"nginx-ucp-usa-ct","nginx.ingress.kubernetes.io/auth-tls-secret":"ucp-usa-ct/apigee-tls-auth-ca-certs","nginx.ingress.kubernetes.io/auth-tls-verify-depth":"3"},"name":"simple-web-service-ingress","namespace":"ucp-usa-ct"},"spec":{"rules":[{"host":"simple-web-service.ucp-usa-ct.use1-ucp-load.ext.scpdev.net","http":{"paths":[{"backend":{"serviceName":"simplewebservice","servicePort":8080}}]}}],"tls":[{"hosts":["simple-web-service.ucp-usa-ct.use1-ucp-load.ext.scpdev.net"],"secretName":"wildcard-ingress-tls-cert"}]}}
+      kubernetes.io/ingress.class: nginx-ucp-usa-ct
+      nginx.ingress.kubernetes.io/auth-tls-secret: ucp-usa-ct/apigee-tls-auth-ca-certs
+      nginx.ingress.kubernetes.io/auth-tls-verify-depth: "3"
+    creationTimestamp: 2018-01-31T20:24:23Z
+    generation: 3
+    name: simple-web-service-ingress
+    namespace: ucp-usa-ct
+    resourceVersion: "144436843"
+    selfLink: /apis/extensions/v1beta1/namespaces/ucp-usa-ct/ingresses/simple-web-service-ingress
+    uid: b9e46f94-06c4-11e8-9929-0a6e7c8b4f24
+  spec:
+    rules:
+    - host: simple-web-service.ucp-usa-ct.use1-ucp-load.ext.scpdev.net
+      http:
+        paths:
+        - backend:
+            serviceName: simplewebservice
+            servicePort: 8080
+    tls:
+    - hosts:
+      - simple-web-service.ucp-usa-ct.use1-ucp-load.ext.scpdev.net
+      secretName: wildcard-ingress-tls-cert
+  status:
+    loadBalancer:
+      ingress:
+      - {}
+kind: List
+metadata: {}
+resourceVersion: ""
+selfLink: ""
