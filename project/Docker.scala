@@ -44,4 +44,11 @@ object Docker {
     dockerUpdateLatest := true
   )
 
+  val simpleUdpServiceDockerSettings: Seq[Def.Setting[_]] = Seq(
+    dockerBaseImage := I.openjdk8Alpine,
+    dockerRepository := repo,
+    dockerLabels := mapDockerLabels(simpleUdpServiceKey, simpleUdpServiceVersion, buildTime),
+    dockerUpdateLatest := true
+  )
+
 }
