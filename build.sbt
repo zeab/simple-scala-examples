@@ -1,5 +1,6 @@
 
 //Imports
+import Common.disablePublishing
 import Settings._
 import Dependencies._
 import Docker._
@@ -18,6 +19,7 @@ lazy val simplewebservice = (project in file(simpleWebServiceKey))
   .enablePlugins(AshScriptPlugin)
   .enablePlugins(AssemblyPlugin)
   .settings(mappings in Universal += file("./webUi/index.html") -> "/webUi/index.html")
+  .settings(disablePublishing: _*)
 
 
 lazy val simpleudpclient = (project in file(simpleUdpClientKey))
@@ -28,6 +30,7 @@ lazy val simpleudpclient = (project in file(simpleUdpClientKey))
   .settings(simpleUdpClientDockerSettings)
   .enablePlugins(AshScriptPlugin)
   .enablePlugins(AssemblyPlugin)
+  .settings(disablePublishing: _*)
 
 lazy val simplestream = (project in file(simpleStreamKey))
   .settings(simpleStreamSettings: _*)
@@ -40,6 +43,7 @@ lazy val simpleudpservice = (project in file(simpleUdpServiceKey))
   .settings(libraryDependencies ++= commonDependencies)
   .enablePlugins(Artifactory)
   .settings(allResolvers: _*)
+  .settings(disablePublishing: _*)
 
 lazy val simplekafkaproducer = (project in file(simpleKafkaProducerKey))
   .settings(simpleKafkaProducerSettings: _*)
