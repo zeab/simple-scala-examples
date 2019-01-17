@@ -4,8 +4,9 @@ package zeab.simplewebservice
 import zeab.akkatools.akkaconfigbuilder.AkkaConfigBuilder
 import zeab.akkatools.webservice.{WebServiceActor, WebServiceEnvGrok}
 import zeab.akkatools.webservice.WebServiceMessages.StartService
+import zeab.heapmonitor.HeapMonitorActor
 import zeab.logging.Logging
-import zeab.webservice.Routes
+import zeab.simplewebservice.webservice.Routes
 //Akka
 import akka.actor.Props
 import akka.actor.ActorSystem
@@ -18,12 +19,15 @@ object SimpleWebService extends Logging with WebServiceEnvGrok{
   def main(args: Array[String]): Unit = {
 
     //Akka
-    implicit val actorSystem:ActorSystem = ActorSystem("SimpleWebService", AkkaConfigBuilder.buildConfig())
-    implicit val actorMaterializer: ActorMaterializer = ActorMaterializer()
-    implicit val executionContext: ExecutionContext = actorSystem.dispatcher
+    implicit val system:ActorSystem = ActorSystem("SimpleWebService", AkkaConfigBuilder.buildConfig())
+    implicit val mat: ActorMaterializer = ActorMaterializer()
+    implicit val ec: ExecutionContext = system.dispatcher
 
     //Web Service
-    actorSystem.actorOf(Props(classOf[WebServiceActor], actorMaterializer), "SimpleWebService") ! StartService(Routes.allRoutes, "8082")
+    system.actorOf(Props(classOf[WebServiceActor], mat), "SimpleWebService") ! StartService(Routes.allRoutes, "8082")
+
+    //Start a heap monitor just for fun
+    system.actorOf(Props(classOf[HeapMonitorActor], 5, envGrok("IS_HEAP_LOGGED", "true").toBoolean))
 
   }
 

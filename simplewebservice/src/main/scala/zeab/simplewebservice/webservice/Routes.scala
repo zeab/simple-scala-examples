@@ -1,8 +1,8 @@
-package zeab.webservice
+package zeab.simplewebservice.webservice
 
 //Imports
 import java.util.UUID
-
+//Akka
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.Directives._
@@ -10,14 +10,15 @@ import akka.http.scaladsl.server.Route
 import akka.stream.scaladsl.Source
 import akka.stream.{ActorMaterializer, ThrottleMode}
 import akka.util.ByteString
-
+//Scala
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 object Routes {
 
   //Collection of all the routes together in 1 big route
-  def allRoutes(implicit actorSystem: ActorSystem, mat: ActorMaterializer, executionContext: ExecutionContext): Route = ingressCheckRoute ~ streamRoute ~ webUiRoute
+  def allRoutes(implicit actorSystem: ActorSystem, mat: ActorMaterializer, executionContext: ExecutionContext): Route =
+    ingressCheckRoute ~ streamRoute ~ webUiRoute
 
   //Routes for serving files though a route
   def webUiRoute(implicit actorSystem:ActorSystem):Route = {
