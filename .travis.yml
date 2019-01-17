@@ -9,7 +9,6 @@ branches:
   only:
     - master
 
-
 notifications:
   email:
     recipients:
@@ -19,4 +18,4 @@ jdk:
   - openjdk8
 
 script:
-  - docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD" && sbt dp-sws
+  - docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD" && sbt dp-travisci
