@@ -10,6 +10,12 @@ import Resolvers.allResolvers
 //Add all the command alias's
 CommandAlias.allCommandAlias
 
+lazy val corescalaexamples = (project in file(coreScalaExamplesKey))
+  .settings(coreScalaExamplesSettings: _*)
+  .settings(libraryDependencies ++= commonDependencies)
+  .enablePlugins(Artifactory)
+  .settings(allResolvers: _*)
+
 lazy val simplewebservice = (project in file(simpleWebServiceKey))
   .settings(simpleWebServiceSettings: _*)
   .settings(libraryDependencies ++= commonDependencies)

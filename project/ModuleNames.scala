@@ -14,4 +14,6 @@ object ModuleNames {
 
   val complexWebServiceKey: String = "complexwebservice"
 
+  val coreScalaExamplesKey: String = "corescalaexamples"
+
 }

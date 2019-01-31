@@ -7,6 +7,8 @@ import sbt.Def
 //Settings
 object Settings {
 
+  val coreScalaExamplesSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(coreScalaExamplesVersion)
+
   val simpleStreamSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(simpleStreamVersion)
 
   val complexWebServiceSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(complexWebServiceVersion)
