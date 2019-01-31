@@ -12,10 +12,12 @@ object Dependencies {
   val D = new {
     //Wabonki
     val wabonki                     = "zeab" %% "wabonki" % V.wabonki
+    val classUtil                   = "org.clapper" %% "classutil" % "1.4.0"
   }
 
   val commonDependencies: Seq[ModuleID] = Seq(
-    D.wabonki
+    D.wabonki,
+    D.classUtil
   )
 
 }
