@@ -16,4 +16,7 @@ object ModuleNames {
 
   val coreScalaExamplesKey: String = "corescalaexamples"
 
+  val slackWebhookKey: String = "slackwebhook"
+  val slackBotKey: String = "slackbot"
+
 }

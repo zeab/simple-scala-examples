@@ -51,4 +51,18 @@ object Docker {
     dockerUpdateLatest := true
   )
 
+  val slackWebhookDockerSettings: Seq[Def.Setting[_]] = Seq(
+    dockerBaseImage := I.openjdk8Alpine,
+    dockerRepository := repo,
+    dockerLabels := mapDockerLabels(slackWebhookKey, slackWebhookVersion, buildTime),
+    dockerUpdateLatest := true
+  )
+
+  val slackBotDockerSettings: Seq[Def.Setting[_]] = Seq(
+    dockerBaseImage := I.openjdk8Alpine,
+    dockerRepository := repo,
+    dockerLabels := mapDockerLabels(slackBotKey, slackBotVersion, buildTime),
+    dockerUpdateLatest := true
+  )
+  
 }

@@ -16,6 +16,10 @@ object CommandAlias {
       dockerCommands(simpleUdpClientKey) ++
       dockerCommands("cws", complexWebServiceKey) ++
       dockerCommands(complexWebServiceKey) ++
+      dockerCommands("swh", slackWebhookKey) ++
+      dockerCommands(slackWebhookKey) ++
+      dockerCommands("sb", slackBotKey) ++
+      dockerCommands(slackBotKey) ++
       dockerCommands("travisci", simpleWebServiceKey, simpleUdpClientKey, simpleUdpServiceKey)
 
   //List all Assembly Alias here
