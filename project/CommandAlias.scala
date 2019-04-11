@@ -19,7 +19,9 @@ object CommandAlias {
       dockerCommands("travisci", simpleWebServiceKey, simpleUdpClientKey, simpleUdpServiceKey)
 
   //List all Assembly Alias here
-  val allAssemblyAlias: Seq[Def.Setting[_]] = Seq.empty
+  val allAssemblyAlias: Seq[Def.Setting[_]] =
+    assemblyCommands("sws", simpleWebServiceKey) ++
+      assemblyCommands(simpleWebServiceKey)
 
   //Group all the commands for use in build.sbt
   val allCommandAlias: Seq[Def.Setting[_]] =

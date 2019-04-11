@@ -12,19 +12,20 @@ import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.kafka.common.serialization.StringSerializer
 import zeab.akkatools.akkaconfigbuilder.AkkaConfigBuilder
 import zeab.logging.{BasicLogMessage, Logging}
+import zeab.sys.EnvironmentVariables
 
 import scala.concurrent.{ExecutionContext, Future}
 
-object SimpleKafkaProducer extends Logging{
+object SimpleKafkaProducer extends Logging with EnvironmentVariables{
 
   def main(args: Array[String]): Unit = {
 
     //Settings
-    val kafkaAddress = "localhost:9021"
-    val kafkaTopic: String = envGrok("KAFKA_TOPIC", "thistopic")
+    val kafkaAddress: String = "localhost:9021"
+    val kafkaTopic: String = getEnvVar[String]("KAFKA_TOPIC", "thistopic")
 
     //Akka
-    implicit val actorSystem:ActorSystem = ActorSystem("SimpleKafkaProducer", AkkaConfigBuilder.buildConfig())
+    implicit val actorSystem: ActorSystem = ActorSystem("SimpleKafkaProducer", AkkaConfigBuilder.buildConfig())
     implicit val actorMaterializer: ActorMaterializer = ActorMaterializer()
     implicit val executionContext: ExecutionContext = actorSystem.dispatcher
 

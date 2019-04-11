@@ -27,7 +27,7 @@ object SimpleWebService extends Logging with WebServiceEnvGrok{
     system.actorOf(Props(classOf[WebServiceActor], mat), "SimpleWebService") ! StartService(Routes.allRoutes, "8082")
 
     //Start a heap monitor just for fun
-    system.actorOf(Props(classOf[HeapMonitorActor], 5, envGrok("IS_HEAP_LOGGED", "true").toBoolean))
+    system.actorOf(Props(classOf[HeapMonitorActor], 5, getEnvVar("IS_HEAP_LOGGED", "true").toBoolean))
 
   }
 
