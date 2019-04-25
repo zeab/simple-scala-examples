@@ -1,6 +1,9 @@
 package zeab.complexwebservice.webservice
 
 //Imports
+import akka.http.scaladsl.marshalling.ToResponseMarshallable
+import akka.http.scaladsl.model._
+import akka.http.scaladsl.server.{MediaTypeNegotiator, UnsupportedRequestContentTypeRejection}
 import zeab.complexwebservice.webservice.actorassourceforhttpstream.{ExampleDataPacketFeederActor, ExampleDataPacketGraph}
 //Akka
 import akka.{Done, NotUsed}
@@ -25,7 +28,8 @@ import io.circe.syntax._
 object Routes {
 
   //Collection of all the routes together in 1 big route
-  def allRoutes(implicit actorSystem: ActorSystem, mat: ActorMaterializer, executionContext: ExecutionContext): Route = actorAsSourceForHttpStreamRoute ~ webSocket
+  def allRoutes(implicit actorSystem: ActorSystem, mat: ActorMaterializer, executionContext: ExecutionContext): Route =
+    actorAsSourceForHttpStreamRoute ~ webSocket ~ returnBasedOnHeader
 
   //Routes dealing with basic ingress checks
   def actorAsSourceForHttpStreamRoute(implicit actorSystem: ActorSystem): Route = {
@@ -57,5 +61,51 @@ object Routes {
       }
     }
   }
+
+  //need to accept json or xml and decode correctly
+//  def handleReq(json: String) = {
+//    (get & extract(_.request.acceptedMediaRanges)) {
+//      r =>
+//        val encoding: MediaRange =
+//          r.intersect(myEncodings).headOption
+//            .getOrElse(MediaTypes.`application/json`)
+//        complete {
+//          // check conditions here
+//          HttpResponse(entity = HttpEntity(encoding.specimen, json)) //
+//        }
+//    }
+//  }
+  val myEncodings = Seq(MediaRange(MediaTypes.`application/xml`),MediaRange(MediaTypes.`application/json`))
+
+  //need to return the response based on the header
+  def returnBasedOnHeader(implicit actorSystem: ActorSystem): Route = {
+    pathPrefix("returntype") {
+      get {
+
+        //if the header is xml send back xml...
+        //if the header is json send back json...
+
+        val rt : ToResponseMarshallable = Boop("llama", 10).toString
+
+        val ww = <moose>asd</moose>
+        val kk = HttpResponse(entity = HttpEntity(ContentType.WithCharset(MediaTypes.`application/xml`, HttpCharsets.`UTF-8`), ww.toString))
+        complete(kk)
+      }
+    }
+  }
+
+
+//  def handleReq(json: String) = {
+//    (get & extract(_.request.acceptedMediaRanges)) {
+//      r =>
+//        val encoding: MediaRange =
+//          r.intersect(myEncodings).headOption
+//            .getOrElse(MediaTypes.`application/json`)
+//        complete {
+//          // check conditions here
+//          // HttpResponse(entity = HttpEntity(encoding.specimen, json)) //
+//        }
+//    }
+//  }
 
 }

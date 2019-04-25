@@ -37,6 +37,27 @@ object Docker {
     dockerUpdateLatest := true
   )
 
+  val simpleKafkaProducerDockerSettings: Seq[Def.Setting[_]] = Seq(
+    dockerBaseImage := I.openjdk8Alpine,
+    dockerRepository := repo,
+    dockerLabels := mapDockerLabels(simpleKafkaProducerKey, simpleKafkaProducerVersion, buildTime),
+    dockerUpdateLatest := true
+  )
+
+  val simpleKafkaConsumerDockerSettings: Seq[Def.Setting[_]] = Seq(
+    dockerBaseImage := I.openjdk8Alpine,
+    dockerRepository := repo,
+    dockerLabels := mapDockerLabels(simpleKafkaConsumerKey, simpleKafkaConsumerVersion, buildTime),
+    dockerUpdateLatest := true
+  )
+
+  val simpleKafkaEnricherDockerSettings: Seq[Def.Setting[_]] = Seq(
+    dockerBaseImage := I.openjdk8Alpine,
+    dockerRepository := repo,
+    dockerLabels := mapDockerLabels(simpleKafkaEnricherKey, simpleKafkaEnricherVersion, buildTime),
+    dockerUpdateLatest := true
+  )
+
   val simpleUdpClientDockerSettings: Seq[Def.Setting[_]] = Seq(
     dockerBaseImage := I.openjdk8Alpine,
     dockerRepository := repo,

@@ -1,5 +1,6 @@
 package slackwebhook
 
+//Imports
 import akka.actor.{ActorSystem, Props}
 import akka.stream.ActorMaterializer
 import zeab.akkatools.akkaconfigbuilder.AkkaConfigBuilder
@@ -16,12 +17,6 @@ object SlackWebhook {
     implicit val ec: ExecutionContext = system.dispatcher
 
     system.actorOf(Props(classOf[SlackWebhookActor]))
-
-
-
-
-
-
 
   }
 
