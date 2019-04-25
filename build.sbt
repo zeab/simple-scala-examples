@@ -24,7 +24,7 @@ lazy val simplewebservice = (project in file(simpleWebServiceKey))
   .settings(simpleWebServiceDockerSettings)
   .enablePlugins(AshScriptPlugin)
   .enablePlugins(AssemblyPlugin)
-  .settings(mappings in Universal += file("./webUi/index.html") -> "/webUi/index.html")
+  .settings(mappings in Universal += file("./simplewebservice/webUi/index.html") -> "/webUi/index.html")
   .settings(disablePublishing: _*)
 
 lazy val simpleudpclient = (project in file(simpleUdpClientKey))
