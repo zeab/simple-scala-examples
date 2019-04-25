@@ -8,9 +8,8 @@ import zeab.logging.Logging
 //Java
 import java.util.concurrent.Executors
 //Akka
-import akka.actor.{ActorRef, Props}
+import akka.actor.{ActorSystem, ActorRef, Props}
 import akka.routing.RoundRobinPool
-import akka.actor.ActorSystem
 import akka.kafka.ConsumerMessage.CommittableOffsetBatch
 import akka.kafka.scaladsl.{Consumer, Producer}
 import akka.kafka._

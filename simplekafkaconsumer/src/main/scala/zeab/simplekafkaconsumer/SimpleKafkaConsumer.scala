@@ -6,11 +6,10 @@ import zeab.akkatools.udp.client.UdpClientMessages.SendUdpDatagram
 import zeab.akkatools.udp.client.UdpConnectedClientActor
 import zeab.logging.Logging
 //Akka
-import akka.actor.{ActorRef, Props}
+import akka.actor.{ActorSystem, ActorRef, Props}
 import akka.routing.RoundRobinPool
 import akka.kafka.scaladsl.Consumer.Control
 import akka.stream.scaladsl.Source
-import akka.actor.ActorSystem
 import akka.kafka.{ConsumerSettings, Subscriptions}
 import akka.kafka.scaladsl.Consumer
 import akka.stream.ActorMaterializer
