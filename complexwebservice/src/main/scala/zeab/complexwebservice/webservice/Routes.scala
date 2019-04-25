@@ -46,16 +46,16 @@ object Routes {
   }
 
   def webSocket(implicit actorSystem: ActorSystem): Route = {
+    class NewMsg{def msg = UUID.randomUUID().toString}
     pathPrefix("websocket") {
       get {
         val incomingMessages: Sink[Message, Future[Done]] =
           Sink
             .foreach { message => println(s"$message") }
-        //so the source... custom flow again ... right...
-        //But then again... do i really need that... i really dont know...
         val outgoingMessages: Source[Message, NotUsed] =
           Source
-            .repeat(TextMessage(s"${UUID.randomUUID}"))
+            .repeat(new NewMsg)
+            .map(msg => TextMessage(msg.msg))
             .throttle(1, 1.second)
         handleWebSocketMessages(Flow.fromSinkAndSource(incomingMessages, outgoingMessages))
       }
