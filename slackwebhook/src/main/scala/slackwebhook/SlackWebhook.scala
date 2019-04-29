@@ -2,29 +2,39 @@ package slackwebhook
 
 //Imports
 import zeab.akkatools.akkaconfigbuilder.AkkaConfigBuilder
-import zeab.akkatools.slackbot.slackwebhook.SlackWebhookActor
+import zeab.akkatools.slack.slackwebhook.{SlackWebHook2, SlackWebhook}
 import zeab.logging.Logging
 //Akka
-import akka.actor.{ActorSystem, Props}
-import akka.stream.ActorMaterializer
+import akka.actor.{ActorRef, ActorSystem, Props}
 //Scala
 import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
+//Java
+import java.util.UUID
 
 object SlackWebhook extends Logging {
 
   def main(args: Array[String]): Unit = {
 
     //Settings
-    val slackDomain: String = getEnvVar[String]("SLACK_DOMAIN", "localhost:9092")
-    val slackWebhook: String = getEnvVar[String]("SLACK_WEBHOOK")
+    val webhook: String = getEnvVar[String]("SLACK_WEBHOOK") match {
+      case Right(wh) => wh
+      case Left(ex) =>
+        log.error(ex.toString)
+        System.exit(1)
+        ""
+    }
 
     //Akka
     implicit val system: ActorSystem = ActorSystem("SlackBot", AkkaConfigBuilder.buildConfig())
-    implicit val materializer: ActorMaterializer = ActorMaterializer()
     implicit val executionContext: ExecutionContext = system.dispatcher
 
+    //val slackWebhook: ActorRef = system.actorOf(Props(classOf[SlackWebhook], webhook, 1000))
+    val slackWebhook: ActorRef = system.actorOf(Props(classOf[SlackWebHook2]))
 
-    system.actorOf(Props(classOf[SlackWebhookActor]))
+    system.scheduler.schedule(0.second, 250.millisecond){
+      slackWebhook ! UUID.randomUUID.toString
+    }
 
   }
 
