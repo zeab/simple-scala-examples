@@ -21,4 +21,7 @@ object Settings {
   val simpleKafkaConsumerSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(simpleKafkaConsumerVersion)
   val simpleKafkaEnricherSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(simpleKafkaEnricherVersion)
 
+  val slackWebhookSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(slackWebhookVersion)
+  val slackBotSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(slackBotVersion)
+
 }

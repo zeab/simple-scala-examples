@@ -47,3 +47,23 @@ paths:
           description: DeleteIngressCheck
       tags:
       - "Ingress Check"
+  /readiness:
+    get:
+      summary: GetReadiness
+      description: |
+        Used for k8's readiness check
+      responses:
+        '200':
+          description: GetReadiness
+      tags:
+        - "Readiness Check"
+  /health:
+    get:
+      summary: GetHealth
+      description: |
+        Used for k8's health check
+      responses:
+        '200':
+          description: GetHealth
+      tags:
+        - "Health Check"

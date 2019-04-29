@@ -16,7 +16,18 @@ object CommandAlias {
       dockerCommands(simpleUdpClientKey) ++
       dockerCommands("cws", complexWebServiceKey) ++
       dockerCommands(complexWebServiceKey) ++
-      dockerCommands("travisci", simpleWebServiceKey, simpleUdpClientKey, simpleUdpServiceKey)
+      dockerCommands("swh", slackWebhookKey) ++
+      dockerCommands(slackWebhookKey) ++
+      dockerCommands("sb", slackBotKey) ++
+      dockerCommands(slackBotKey) ++
+      dockerCommands("skp", simpleKafkaProducerKey) ++
+      dockerCommands(simpleKafkaProducerKey) ++
+      dockerCommands("skc", simpleKafkaConsumerKey) ++
+      dockerCommands(simpleKafkaConsumerKey) ++
+      dockerCommands("ske", simpleKafkaEnricherKey) ++
+      dockerCommands(simpleKafkaEnricherKey) ++
+      dockerCommands("k", simpleKafkaEnricherKey, simpleKafkaConsumerKey, simpleKafkaProducerKey) ++
+      dockerCommands("travisci", simpleWebServiceKey, simpleUdpClientKey, simpleUdpServiceKey, simpleKafkaEnricherKey, simpleKafkaConsumerKey, simpleKafkaProducerKey)
 
   //List all Assembly Alias here
   val allAssemblyAlias: Seq[Def.Setting[_]] =

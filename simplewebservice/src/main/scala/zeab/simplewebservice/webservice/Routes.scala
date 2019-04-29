@@ -1,6 +1,8 @@
 package zeab.simplewebservice.webservice
 
 //Imports
+import zeab.akkatools.webservice.K8Routes._
+//Java
 import java.util.UUID
 //Akka
 import akka.actor.ActorSystem
@@ -18,7 +20,7 @@ object Routes {
 
   //Collection of all the routes together in 1 big route
   def allRoutes(implicit actorSystem: ActorSystem, mat: ActorMaterializer, executionContext: ExecutionContext): Route =
-    ingressCheckRoute ~ streamRoute ~ webUiRoute
+    ingressCheckRoute ~ streamRoute ~ webUiRoute ~ readinessCheck ~ healthCheck
 
   //Routes for serving files though a route
   def webUiRoute(implicit actorSystem:ActorSystem):Route = {
