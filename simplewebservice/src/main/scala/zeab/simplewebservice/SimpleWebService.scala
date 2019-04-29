@@ -14,21 +14,17 @@ import akka.stream.ActorMaterializer
 //Scala
 import scala.concurrent.ExecutionContext
 
-object SimpleWebService extends Logging with WebServiceEnvGrok{
+object SimpleWebService extends App with Logging with WebServiceEnvGrok{
 
-  def main(args: Array[String]): Unit = {
+  //Akka
+  implicit val system:ActorSystem = ActorSystem("SimpleWebService", AkkaConfigBuilder.buildConfig())
+  implicit val mat: ActorMaterializer = ActorMaterializer()
+  implicit val ec: ExecutionContext = system.dispatcher
 
-    //Akka
-    implicit val system:ActorSystem = ActorSystem("SimpleWebService", AkkaConfigBuilder.buildConfig())
-    implicit val mat: ActorMaterializer = ActorMaterializer()
-    implicit val ec: ExecutionContext = system.dispatcher
+  //Web Service
+  system.actorOf(Props(classOf[WebServiceActor], mat), "SimpleWebService") ! StartService(Routes.allRoutes, "8082")
 
-    //Web Service
-    system.actorOf(Props(classOf[WebServiceActor], mat), "SimpleWebService") ! StartService(Routes.allRoutes, "8082")
-
-    //Start a heap monitor just for fun
-    system.actorOf(Props(classOf[HeapMonitorActor], 5, getEnvVar("IS_HEAP_LOGGED", "true").toBoolean))
-
-  }
+  //Start a heap monitor just for fun
+  system.actorOf(Props(classOf[HeapMonitorActor], 5, getEnvVar("IS_HEAP_LOGGED", "true").toBoolean))
 
 }
