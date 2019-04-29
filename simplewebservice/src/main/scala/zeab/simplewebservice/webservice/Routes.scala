@@ -20,7 +20,7 @@ object Routes {
 
   //Collection of all the routes together in 1 big route
   def allRoutes(implicit actorSystem: ActorSystem, mat: ActorMaterializer, executionContext: ExecutionContext): Route =
-    ingressCheckRoute ~ streamRoute ~ webUiRoute ~ readinessCheck ~ healthCheck
+    ingressCheckRoute ~ streamRoute ~ webUiRoute ~ readinessCheck() ~ livenessCheck()
 
   //Routes for serving files though a route
   def webUiRoute(implicit actorSystem:ActorSystem):Route = {
