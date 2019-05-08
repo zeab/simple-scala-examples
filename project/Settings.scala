@@ -24,4 +24,7 @@ object Settings {
   val slackWebhookSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(slackWebhookVersion)
   val slackBotSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(slackBotVersion)
 
+  val simpleCassandraReaderSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(simpleCassandraReaderVersion)
+  val simpleCassandraWriterSettings: Seq[Def.Setting[_]] = seqBaseProjectTemplate(simpleCassandraWriterVersion)
+  
 }

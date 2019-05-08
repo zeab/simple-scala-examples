@@ -1,7 +1,6 @@
 
 //Imports
 import java.time.Instant
-
 import sbt.Def
 import sbt.Keys._
 

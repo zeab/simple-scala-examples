@@ -24,5 +24,9 @@ object Versions {
   //Slack
   val slackWebhookVersion: String = s"0.0.$buildTime"
   val slackBotVersion: String = s"0.0.$buildTime"
-
+  
+  //Cassandra
+  val simpleCassandraReaderVersion: String = s"0.0.$buildTime"
+  val simpleCassandraWriterVersion: String = s"0.0.$buildTime"
+  
 }

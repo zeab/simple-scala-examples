@@ -16,6 +16,8 @@ import akka.stream.{ActorMaterializer, OverflowStrategy}
 //Scala
 import scala.concurrent.ExecutionContext
 
+//Actor as Sink
+
 object BackPressuredStream extends Logging {
 
   def main(args: Array[String]): Unit = {

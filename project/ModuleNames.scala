@@ -19,4 +19,7 @@ object ModuleNames {
   val slackWebhookKey: String = "slackwebhook"
   val slackBotKey: String = "slackbot"
 
+  val simpleCassandraReaderKey: String = "simplecassandrareader"
+  val simpleCassandraWriterKey: String = "simplecassandrawriter"
+  
 }
