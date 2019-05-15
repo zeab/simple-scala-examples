@@ -20,7 +20,7 @@ object Routes {
 
   //Collection of all the routes together in 1 big route
   def allRoutes(implicit actorSystem: ActorSystem, mat: ActorMaterializer, executionContext: ExecutionContext): Route =
-    ingressCheckRoute ~ streamRoute ~ webUiRoute ~ readinessCheck() ~ livenessCheck()
+    ingressCheckRoute ~ exampleRoute ~ streamRoute ~ webUiRoute ~ readinessCheck() ~ livenessCheck()
 
   //Routes for serving files though a route
   def webUiRoute(implicit actorSystem:ActorSystem):Route = {
@@ -48,6 +48,60 @@ object Routes {
         } ~
         delete {
           complete(StatusCodes.OK, "Delete IngressCheck")
+        }
+    }
+  }
+
+  def exampleRoute(implicit system: ActorSystem): Route = {
+    pathPrefix("example") {
+      get {
+        complete("")
+      } ~
+        post {
+          decodeRequest {
+            entity(as[String]) { request =>
+              complete("")
+            }
+          } ~
+            put {
+              decodeRequest {
+                entity(as[String]) { request =>
+                  complete("")
+                }
+              }
+            } ~
+            delete {
+              decodeRequest {
+                entity(as[String]) { request =>
+                  complete("")
+                }
+              }
+            } ~ path(Segment) { id =>
+            get {
+              complete("")
+            } ~
+              post {
+                decodeRequest {
+                  entity(as[String]) { request =>
+                    complete("")
+                  }
+                }
+              } ~
+              put {
+                decodeRequest {
+                  entity(as[String]) { request =>
+                    complete("")
+                  }
+                }
+              } ~
+              delete {
+                decodeRequest {
+                  entity(as[String]) { request =>
+                    complete("")
+                  }
+                }
+              }
+          }
         }
     }
   }
